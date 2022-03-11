@@ -31,15 +31,17 @@ public class UDP_receive {
                 e.printStackTrace();
                 System.out.println("接收出了问题");
             }
-            if("bye".equals(data2.trim())){
+            if("bye".equals(data2.substring(data2.indexOf(":")+1).trim())){
                 break;
             }
 
             String s = null;
+            String msg = null;
+
             try {
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-
-                s = bufferedReader.readLine();
+                msg = bufferedReader.readLine();
+                s = "学生2:" + msg;
                 byte[] bytes = s.getBytes();
                 DatagramPacket packet2 = new DatagramPacket(bytes, 0, bytes.length, new InetSocketAddress("localhost", 8686));
 
@@ -48,7 +50,7 @@ public class UDP_receive {
                 e.printStackTrace();
                 System.out.println("发送出了问题");
             }
-            if("bye".equals(s.trim())){
+            if("bye".equals(msg.trim())){
                 break;
             }
         }

@@ -20,10 +20,11 @@ public class UDP_sender {
         DatagramSocket datagramSocket = new DatagramSocket(8686);
         while(true) {
             String s = null;
+            String msg = null;
             try {
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-
-                s = bufferedReader.readLine();
+                msg = bufferedReader.readLine();
+                s = "学生1:" + msg;
                 byte[] bytes = s.getBytes();
                 DatagramPacket packet = new DatagramPacket(bytes, 0, bytes.length, new InetSocketAddress("localhost", 6868));
                 datagramSocket.send(packet);
@@ -31,7 +32,7 @@ public class UDP_sender {
                 e.printStackTrace();
                 System.out.println("发送出了问题");
             }
-            if("bye".equals(s.trim())){
+            if("bye".equals(msg.trim())){
                 break;
             }
 
@@ -48,7 +49,7 @@ public class UDP_sender {
                 e.printStackTrace();
                 System.out.println("接收出了问题");
             }
-            if("bye".equals(data2.trim())){
+            if("bye".equals(data2.substring(data2.indexOf(":")+1).trim())){
                 break;
             }
         }
