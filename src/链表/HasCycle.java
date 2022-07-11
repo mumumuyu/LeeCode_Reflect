@@ -19,7 +19,6 @@ public class HasCycle {
         ListNode init = init();
         boolean b = hasCycle(init);
         System.out.println(b);
-
     }
 
     public static boolean hasCycle(ListNode head){
@@ -43,13 +42,6 @@ public class HasCycle {
 
         return false;
     }
-}
 
-class ListNode {
-    int val;
-    ListNode next;
-    ListNode(int x) {
-        val = x;
-        next = null;
-    }
+
 }
