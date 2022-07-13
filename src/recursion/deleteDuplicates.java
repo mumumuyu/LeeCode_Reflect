@@ -1,4 +1,4 @@
-package 递归;
+package recursion;
 
 public class deleteDuplicates {
     public static ListNode deleteDuplicates(ListNode head) {

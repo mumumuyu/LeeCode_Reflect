@@ -1,4 +1,4 @@
-package 链表;
+package linkedList;
 
 /**
  * @Description: 链表及其基本实现方法
@@ -58,7 +58,7 @@ public class ListNode {
         listNode.getNext().print();
     }
 
-    static ListNode init(){
+     ListNode init(){
         ListNode head = new ListNode(3);
         head.next=new ListNode(5);
         head.next.next = new ListNode(5);

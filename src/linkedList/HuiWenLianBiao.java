@@ -1,4 +1,4 @@
-package 链表;
+package linkedList;
 
 /**
  * @Description:
@@ -8,7 +8,7 @@ package 链表;
 public class HuiWenLianBiao {
 
     public static void main(String[] args) {
-        ListNode init = ListNode.init();
+        ListNode init = new  ListNode().init();
         boolean palindrome = isPalindrome(init);
         System.out.println(palindrome);
     }

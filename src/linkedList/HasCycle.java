@@ -1,4 +1,4 @@
-package 链表;
+package linkedList;
 
 /**
  * @Description: 判断是否有环
