@@ -8,13 +8,16 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
- * @Description:
+ * @Description:    不用读写锁直接开启多个线程存在插队
+ *                  引入读写锁，当写入时一次只能一个线程进行操作
+ *                  独占锁(写锁) 一次一个线程
+ *                  共享锁(读锁) 可以多个线程
  * @author: LGD
  * @date:2022/7/14 16:34
  */
 public class ReadWriteLockDemo {
     public static void main(String[] args) {
-        MyCache myCache = new MyCache();
+        MyCacheLock myCache = new MyCacheLock();
         //写
         for (int i = 1; i <=50; i++) {
             final int temp = i;
@@ -55,9 +58,16 @@ class MyCacheLock {
 
     //写只能一个线程写
     void put(String key,Object value){
-        System.out.println(Thread.currentThread().getName() + "写入" +key);
-        map.put(key,value);
-        System.out.println(Thread.currentThread().getName() + "写入完成");
+        lock.writeLock().lock();//写入锁
+        try {
+            System.out.println(Thread.currentThread().getName() + "写入" + key);
+            map.put(key, value);
+            System.out.println(Thread.currentThread().getName() + "写入完成");
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            lock.writeLock().unlock();
+        }
     }
 
     //读可以多个线程去读
