@@ -13,7 +13,7 @@ public class ZuiDuanZiShuZu {
     public static void main(String[] args) {
         int target = 11;
         int[] nums = {1,2,3,4,5};
-        System.out.println(minSubArrayLen(target, nums));
+        System.out.println(minSubArrayLen2(target, nums));
     }
 
     //靠，没读好题,>=
@@ -22,7 +22,6 @@ public class ZuiDuanZiShuZu {
             return 0;
         }
 
-//        Arrays.sort(nums);
         int count = nums.length + 1;
 
         for (int i = 0; i < nums.length; i++) {
@@ -40,9 +39,23 @@ public class ZuiDuanZiShuZu {
             }
         }
 
-        if (count == nums.length + 1){
-            return 0;
+        return count == (nums.length + 1) ? 0 : count;
+    }
+
+    //滑动窗口
+    public static int minSubArrayLen2(int target, int[] nums) {
+        int start = 0, end = 0, sum = 0;
+        int count = nums.length + 1;
+        while(end < nums.length){
+            sum += nums[end];
+            while (sum >= target){
+                count = Math.min(count,end-start+1);
+                sum -= nums[start];
+                start++;
+            }
+            end++;
         }
-        return count;
+
+        return count == nums.length + 1 ? 0 : count;
     }
 }
