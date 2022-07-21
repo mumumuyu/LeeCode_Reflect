@@ -10,12 +10,15 @@ import java.util.Map;
  */
 public class HeWeiKDeZiShuZu {
     public static void main(String[] args) {
-        int[] nums = {1,1,1};
+/*        int[] nums = {1,2,1};
         int k = 2;
-        System.out.println(subarraySum(nums, k));
+        System.out.println(subarraySum2(nums, k));*/
+        HashMap<Integer, Integer> map = new HashMap<>();
+        map.put(5,2);
+        System.out.println(map.getOrDefault(4, 0));
     }
 
-    //滑倒了，不存在负数时可用滑动窗口 😡好不容易会
+    //滑倒了，不存在负数时可用滑动窗口 ,正整数+连续序列 可以用 😡好不容易会
     public static int subarraySum(int[] nums, int k) {
         if (nums.length <= 0)
             return 0;
@@ -40,17 +43,16 @@ public class HeWeiKDeZiShuZu {
     }
 
     //朴素前缀和
-    public int subarraySum2(int[] nums, int k) {
-        Map<Integer, Integer> map = new HashMap<>();  // 前缀 -> 出现次数
-        map.put(0, 1);  // 以防nums[0]就是k
-        int pre = 0, cnt = 0;
-        for (int n : nums) {
-            pre += n;
-            // 已知当前的前缀pre和之前某个前缀X，且要求pre-X=k，那么X=pre-k。X的出现次数就是此时以n结尾的子数组的合法次数
-            cnt += map.getOrDefault(pre - k, 0);
-            map.put(pre, map.getOrDefault(pre, 0) + 1);
+    public static int subarraySum2(int[] nums, int k) {
+        int count = 0,sum = 0;
+        HashMap<Integer,Integer> maps = new HashMap<>();
+        maps.put(0,1);
+        for (int num:nums){
+            sum += num;
+            count += maps.getOrDefault(sum - k,0);
+            maps.put(sum,maps.getOrDefault(sum,0)+1);
         }
-        return cnt;
+        return count;
     }
 
 }
