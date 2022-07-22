@@ -5,13 +5,15 @@ import java.util.Map;
 
 /**
  * @Description:    0,1个数相同子数组
+ * 执行用时：24 ms, 在所有 Java 提交中击败了33.24%的用户
+ * 内存消耗：50.3 MB, 在所有 Java 提交中击败了37.09%的用户
  * @author: LGD
  * @date:2022/7/21 9:05
  */
 public class ZeroAndOneCountSonArray {
     public static void main(String[] args) {
         int[] nums = {0,1,0,0,1};
-        System.out.println(findMaxLength(nums));
+        System.out.println(findMaxLength3(nums));
     }
 
     //寄,莽夫直接超时
@@ -55,5 +57,26 @@ public class ZeroAndOneCountSonArray {
                 map.put(sum, i);
         }
         return ans;
+    }
+
+    public static int findMaxLength3(int[] nums) {
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == 0)
+                nums[i] = -1;
+        }
+        int sum =0,count  = 0;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        //i从0开始，1-(-1)=2
+        map.put(0,-1);
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+            //记录sum对应i,如果碰到一样的sum那中间肯定为0，不需要更新位置，因为要最大的;
+            if(map.containsKey(sum)){
+                count = Math.max(count, i - map.get(sum));
+            }else{
+                map.put(sum,i);
+            }
+        }
+        return  count;
     }
 }
