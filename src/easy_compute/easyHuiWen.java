@@ -3,7 +3,7 @@ package easy_compute;
 import java.util.Locale;
 
 /**
- * @Description:    有效回文    使用正则表达去除字符中除去字母与数字
+ * @Description:    有效回文    使用正则表达去除字符中除去字母与数字 其余莽夫
  * 执行用时：13 ms, 在所有 Java 提交中击败了7.73%的用户
  * 内存消耗：42 MB, 在所有 Java 提交中击败了8.22%的用户
  * @author: LGD
