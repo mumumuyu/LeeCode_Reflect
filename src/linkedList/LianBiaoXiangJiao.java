@@ -11,7 +11,6 @@ public class LianBiaoXiangJiao {
     }
 
     public static ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-
         return null;
     }
 

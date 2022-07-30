@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Description:
+ * @Description: 排序算法
  * @author: LGD
  * @date:2022/4/10 20:41
  */
@@ -198,5 +198,9 @@ public class Sort_Test {
         quickSort(nums,low,j-1);
         quickSort(nums,j+1,high);
     }
+
+    /**
+     * 堆排序
+     */
 
 }

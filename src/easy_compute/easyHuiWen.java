@@ -1,6 +1,11 @@
 package easy_compute;
 
+import java.util.Collections;
 import java.util.Locale;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Description:    有效回文    使用正则表达去除字符中除去字母与数字 其余莽夫
@@ -11,8 +16,15 @@ import java.util.Locale;
  */
 public class easyHuiWen {
     public static void main(String[] args) {
-        String s = "A man, a plan, a canal: Panama";
-        System.out.println(isPalindrome(s));
+        /*String s = "A man, a plan, a canal: Panama";
+        System.out.println(isPalindrome(s));*/
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(2, 2, 10, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
+        threadPoolExecutor.execute(new DeadTest());
+        threadPoolExecutor.execute(new DeadTest());
+        threadPoolExecutor.execute(new DeadTest());
+        threadPoolExecutor.shutdown();
+/*        new Thread(new DeadTest()).start();
+        new Thread(new DeadTest()).start();*/
     }
 
     public static boolean isPalindrome(String s) {
@@ -22,5 +34,41 @@ public class easyHuiWen {
                 return false;
         }
         return true;
+    }
+}
+
+class DeadTest implements Runnable{
+    static Integer one = 1;
+    static Integer two = 2;
+    static Boolean flag = true;
+
+    @Override
+    public void run() {
+        if(flag){
+            flag = false;
+            synchronized (one){
+                System.out.println("获取one");
+                try {
+                    TimeUnit.SECONDS.sleep(4);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                synchronized (two){
+                    System.out.println("获取two");
+                }
+            }
+        }else{
+            synchronized (two){
+                System.out.println("获取two");
+                try {
+                    TimeUnit.SECONDS.sleep(4);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                synchronized (one){
+                    System.out.println("获取one");
+                }
+            }
+        }
     }
 }
