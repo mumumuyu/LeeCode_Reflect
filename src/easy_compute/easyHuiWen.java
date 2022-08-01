@@ -1,11 +1,13 @@
 package easy_compute;
 
-import java.util.Collections;
-import java.util.Locale;
+import com.sun.jmx.remote.internal.ArrayQueue;
+
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * @Description:    有效回文    使用正则表达去除字符中除去字母与数字 其余莽夫
@@ -18,13 +20,18 @@ public class easyHuiWen {
     public static void main(String[] args) {
         /*String s = "A man, a plan, a canal: Panama";
         System.out.println(isPalindrome(s));*/
-        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(2, 2, 10, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
+/*        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(2, 2, 10, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
         threadPoolExecutor.execute(new DeadTest());
         threadPoolExecutor.execute(new DeadTest());
         threadPoolExecutor.execute(new DeadTest());
-        threadPoolExecutor.shutdown();
+        threadPoolExecutor.shutdown();*/
 /*        new Thread(new DeadTest()).start();
         new Thread(new DeadTest()).start();*/
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.stream().sorted((pre, next) -> -1).mapToInt(Integer::intValue).toArray();
     }
 
     public static boolean isPalindrome(String s) {
