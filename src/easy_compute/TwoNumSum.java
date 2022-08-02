@@ -11,9 +11,9 @@ public class TwoNumSum {
     public static void main(String[] args) {
 
         ListNode listNode = new ListNode(9);
-        ListNode listNode2 = new ListNode(1);
+        ListNode listNode2 = new ListNode(8);
         listNode2.setNext(new ListNode(9));
-        ListNode listNode1 = addTwoNumbers(listNode, listNode2);
+        ListNode listNode1 = addTwoNumbers2(listNode, listNode2);
         listNode1.print();
     }
 
@@ -53,5 +53,31 @@ public class TwoNumSum {
         }
 
         return head;
+    }
+
+    /**
+     * 使用维护进位变量t方法
+     * @param l1
+     * @param l2
+     * @return
+     */
+    public static ListNode addTwoNumbers2(ListNode l1, ListNode l2) {
+        ListNode node = new ListNode();
+        ListNode pre = node;//不直接操作原指针
+        int t = 0;//进位变量
+        while(l1 != null || l2 != null || t != 0){
+            if(l1 != null){
+                t += l1.val;
+                l1 = l1.next;
+            }
+            if(l2 != null){
+                t += l2.val;
+                l2 = l2.next;
+            }
+            pre.next = new ListNode(t % 10);
+            pre = pre.next;
+            t /= 10;
+        }
+        return node.next;
     }
 }
