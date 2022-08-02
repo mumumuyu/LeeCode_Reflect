@@ -10,9 +10,9 @@ public class ListNode {
     int val;
     ListNode next;
 
-    ListNode() {
+    public ListNode() {
     }
-    ListNode(int x) {
+    public ListNode(int x) {
         val = x;
         next = null;
     }
