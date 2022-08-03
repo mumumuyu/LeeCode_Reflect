@@ -2,6 +2,8 @@ package linkedList;
 
 /**
  * @Description: 合并链表
+ * 执行用时：0 ms, 在所有 Java 提交中击败了100.00%的用户
+ * 内存消耗：41.6 MB, 在所有 Java 提交中击败了34.73%的用户
  * @author: LGD
  * @date:2022/7/11 11:26
  */
@@ -20,7 +22,7 @@ public class HeBinLieBiao {
         listNode2.next.next.next = new ListNode(9);
         listNode2.next.next.next.next = new ListNode(32);
 
-        ListNode listNode = mergeTwoLists(listNode1, listNode2);
+        ListNode listNode = mergeTwoLists2(listNode1, listNode2);
         listNode.print();
     }
 
@@ -47,5 +49,31 @@ public class HeBinLieBiao {
         newList.next = list1 == null ?  list2 : list1;
 
         return sumList.next;
+    }
+
+    //2刷
+    public static ListNode mergeTwoLists2(ListNode l1, ListNode l2) {
+        ListNode merge = new ListNode(-1);
+        ListNode node = merge;
+        while(l1 != null || l2 != null){
+            if(l1 == null){
+                merge.next = l2;
+                return node.next;
+            }
+            if(l2 == null){
+                merge.next = l1;
+                return node.next;
+            }
+            if(l1.val <= l2.val){
+                merge.next = l1;
+                merge = merge.next;
+                l1 = l1.next;
+            }else{
+                merge.next = l2;
+                merge = merge.next;
+                l2 = l2.next;
+            }
+        }
+        return node.next;
     }
 }
