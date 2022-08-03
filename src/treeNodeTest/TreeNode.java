@@ -83,4 +83,16 @@ public class TreeNode {
         }
     }
 
+    public static TreeNode init(){
+        TreeNode treeNode7 = new TreeNode(7);
+        TreeNode treeNode3 = new TreeNode(3, treeNode7, null);
+        TreeNode treeNode4 = new TreeNode(4, null, null);
+        TreeNode treeNode5 = new TreeNode(5, null, null);
+        TreeNode treeNode6 = new TreeNode(6, null, null);
+        TreeNode treeNode1 = new TreeNode(1, treeNode3, treeNode4);
+        TreeNode treeNode2 = new TreeNode(2, treeNode5, treeNode6);
+        TreeNode treeNode0 = new TreeNode(0, treeNode1, treeNode2);
+        return  treeNode0;
+    }
+
 }
