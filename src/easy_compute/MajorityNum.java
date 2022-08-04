@@ -1,5 +1,6 @@
 package easy_compute;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -11,7 +12,9 @@ import java.util.HashMap;
  */
 public class MajorityNum {
     public static void main(String[] args) {
-
+        int[] num = {6,5,4,3,2,1};
+        int[] ints = Arrays.stream(num).sorted().limit(3).toArray();
+        System.out.println(Arrays.toString(ints));
     }
 
     public int majorityElement(int[] nums) {
@@ -23,5 +26,26 @@ public class MajorityNum {
                 return num;
         }
         return 0;
+    }
+
+    //🤡了，超过一半排序后必定在中间
+    /**
+     * 执行用时：2 ms, 在所有 Java 提交中击败了56.17%的用户
+     * 内存消耗：44.9 MB, 在所有 Java 提交中击败了56.03%的用户
+     */
+    public int majorityElement2(int[] nums) {
+        Arrays.sort(nums);
+        return nums[nums.length/2];
+    }
+
+    //获取乱序数组最小k个
+    /** 摆烂刀法
+     *执行用时：14 ms, 在所有 Java 提交中击败了29.76%的用户
+     * 内存消耗：43.4 MB, 在所有 Java 提交中击败了5.04%的用户
+     */
+    public int[] getLeastNumbers(int[] arr, int k) {
+        if(arr==null || arr.length == 0)
+            return new int[0];
+        return Arrays.stream(arr).sorted().limit(k).toArray();
     }
 }
