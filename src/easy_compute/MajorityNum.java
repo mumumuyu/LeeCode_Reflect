@@ -12,9 +12,11 @@ import java.util.HashMap;
  */
 public class MajorityNum {
     public static void main(String[] args) {
-        int[] num = {6,5,4,3,2,1};
+/*        int[] num = {6,5,4,3,2,1};
         int[] ints = Arrays.stream(num).sorted().limit(3).toArray();
-        System.out.println(Arrays.toString(ints));
+        System.out.println(Arrays.toString(ints));*/
+        int[] num = {-2,1,-3,4,-1,2,1,-5,4};
+        System.out.println(maxSubArray3(num));
     }
 
     public int majorityElement(int[] nums) {
@@ -47,5 +49,50 @@ public class MajorityNum {
         if(arr==null || arr.length == 0)
             return new int[0];
         return Arrays.stream(arr).sorted().limit(k).toArray();
+    }
+
+    //连续子数组最大和
+    public int maxSubArray(int[] nums) {
+        int pre = 0,max = 0;
+        for (int num: nums){
+            pre = Math.max(pre,pre+num);//找到最大前缀和
+            max = Math.max(pre,max);
+        }
+        return max;
+    }
+
+    //前缀和
+    public static int maxSubArray3(int[] nums) {
+        int min = 0,max = Integer.MIN_VALUE,sum = 0;
+        for (int num: nums){
+            sum += num;
+            max = Math.max(max,sum - min);
+            min = Math.min(min,sum);
+        }
+        return max;
+    }
+
+    //超时...
+    public static int maxSubArray2(int[] nums) {
+        if(nums.length < 2) return nums[0];
+        int count = 0;
+        int mmax = 0;
+        for (int num :nums){
+            if (num >= 0) count ++;
+            mmax = Math.max(num,mmax);
+        }
+        if (count == 0)
+            return mmax;
+        int max = 0;
+        for (int i = 0; i < nums.length; i++) {
+            int smax = 0;
+            int sum = 0;
+            for (int j = i; j < nums.length; j++) {
+                sum += nums[j];
+                smax = Math.max(sum,smax);
+            }
+            max = Math.max(max,smax);
+        }
+        return max;
     }
 }

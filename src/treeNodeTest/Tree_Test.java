@@ -11,6 +11,7 @@ public class Tree_Test {
         TreeNode root = init();
         int i = maxHeight(root);
         System.out.println(i);
+        Tree_Test tree_test = new Tree_Test();
     }
 
     public static TreeNode init(){
