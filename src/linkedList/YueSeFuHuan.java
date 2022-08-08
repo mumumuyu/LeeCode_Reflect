@@ -13,7 +13,8 @@ import java.util.logging.SimpleFormatter;
  */
 public class YueSeFuHuan {
     public static void main(String[] args) {
-        System.out.println(lastRemaining3(70866,116922));//64165
+//        System.out.println(lastRemaining3(70866,116922));//64165
+        System.out.println(lastRemaining3(5,3));//64165
     }
 
     //手撕，直接超时😡
@@ -42,9 +43,7 @@ public class YueSeFuHuan {
         return head.val;
     }
 
-    // Array模拟链表——靠，这都比我快😭
-
-    /**
+    /**Array模拟链表——靠，这都比我快😭
      * 执行用时：1043 ms, 在所有 Java 提交中击败了22.40%的用户
      * 内存消耗：43.7 MB, 在所有 Java 提交中击败了8.63%的用户
      */
@@ -64,8 +63,10 @@ public class YueSeFuHuan {
         return lists.get(0);
     }
 
-
-    //数学解法——逆天，果然数学才是人上人😭
+    /**数学解法——逆天，果然数学才是人上人😭
+     * 执行用时：4 ms, 在所有 Java 提交中击败了99.99%的用户
+     * 内存消耗：38.4 MB, 在所有 Java 提交中击败了57.68%的用户
+     */
     public static int lastRemaining2(int n, int m) {
         int ans = 0;
         // 最后一轮剩下2个人，所以从2开始反推
