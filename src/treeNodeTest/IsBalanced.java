@@ -1,5 +1,7 @@
 package treeNodeTest;
 
+import java.util.Arrays;
+
 /**
  * @Description:
  * 执行用时：1 ms, 在所有 Java 提交中击败了55.77%的用户
@@ -11,6 +13,7 @@ public class IsBalanced {
     public static void main(String[] args) {
         TreeNode init = TreeNode.init();
         System.out.println(isBalanced(init));
+
     }
 
     public static boolean isBalanced(TreeNode root) {
