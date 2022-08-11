@@ -136,21 +136,26 @@ public class SnowflakeIdWorker {
 
     /**
      * 破案了，用的HashSet怪不得数字对不上，哈哈哈
+     * 1.用future.isDone()
+     * 2.使用辅助类CyclicBarrier,执行完N次做XXX
      */
     public static void main(String[] args) throws InterruptedException {
         SnowflakeIdWorker idWorker = new SnowflakeIdWorker(0, 0);
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(10, 16, 30, TimeUnit.SECONDS, new LinkedBlockingDeque<>());
         CopyOnWriteArraySet<Long> sets = new CopyOnWriteArraySet<>();
         ArrayList<Future<AtomicInteger>> lists = new ArrayList<>(10);
+        CyclicBarrier barrier = new CyclicBarrier(10,()->{
+            System.out.println(" SUM " + sets.size());
+        });
 
         for (int i = 0; i < 10; i++) {
-            lists.add(runA(threadPoolExecutor, idWorker, sets));
+            lists.add(runA(threadPoolExecutor, idWorker, sets,barrier));
         }
 
         threadPoolExecutor.shutdown();
-        while(true){
+/*        while(true){
             boolean flag = true;
-            for(Future<AtomicInteger> future:lists ) {
+            for(Future<AtomicInteger> future: lists) {
                 if(!future.isDone())
                     flag = false;
             }
@@ -160,10 +165,11 @@ public class SnowflakeIdWorker {
                 break;
             }
             TimeUnit.SECONDS.sleep(3);
-        }
+        }*/
+
     }
 
-    public static Future<AtomicInteger> runA(ThreadPoolExecutor threadPoolExecutor,SnowflakeIdWorker idWorker,CopyOnWriteArraySet<Long> sets)  {
+    public static Future<AtomicInteger> runA(ThreadPoolExecutor threadPoolExecutor,SnowflakeIdWorker idWorker,CopyOnWriteArraySet<Long> sets,CyclicBarrier barrier)  {
         return threadPoolExecutor.submit(() -> {
             AtomicInteger ai = new AtomicInteger(0);
             for (int i = 0; i < 10000; i++) {
@@ -171,6 +177,7 @@ public class SnowflakeIdWorker {
                 sets.add(id);
                 ai.getAndAdd(1);
             }
+            barrier.await();
             return ai;
         });
     }
