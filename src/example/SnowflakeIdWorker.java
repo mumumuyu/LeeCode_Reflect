@@ -1,5 +1,10 @@
 package example;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * @Description:
  * @author: LGD
@@ -129,12 +134,44 @@ public class SnowflakeIdWorker {
         return System.currentTimeMillis();
     }
 
+    /**
+     * 破案了，用的HashSet怪不得数字对不上，哈哈哈
+     */
     public static void main(String[] args) throws InterruptedException {
         SnowflakeIdWorker idWorker = new SnowflakeIdWorker(0, 0);
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(10, 16, 30, TimeUnit.SECONDS, new LinkedBlockingDeque<>());
+        CopyOnWriteArraySet<Long> sets = new CopyOnWriteArraySet<>();
+        ArrayList<Future<AtomicInteger>> lists = new ArrayList<>(10);
+
         for (int i = 0; i < 10; i++) {
-            long id = idWorker.nextId();
-            Thread.sleep(1);
-            System.out.println(id);
+            lists.add(runA(threadPoolExecutor, idWorker, sets));
         }
+
+        threadPoolExecutor.shutdown();
+        while(true){
+            boolean flag = true;
+            for(Future<AtomicInteger> future:lists ) {
+                if(!future.isDone())
+                    flag = false;
+            }
+            if (flag) {
+                //为正常之和说明没有重复   SUM 100000
+                System.out.println(" SUM " + sets.size());
+                break;
+            }
+            TimeUnit.SECONDS.sleep(3);
+        }
+    }
+
+    public static Future<AtomicInteger> runA(ThreadPoolExecutor threadPoolExecutor,SnowflakeIdWorker idWorker,CopyOnWriteArraySet<Long> sets)  {
+        return threadPoolExecutor.submit(() -> {
+            AtomicInteger ai = new AtomicInteger(0);
+            for (int i = 0; i < 10000; i++) {
+                long id = idWorker.nextId();
+                sets.add(id);
+                ai.getAndAdd(1);
+            }
+            return ai;
+        });
     }
 }
