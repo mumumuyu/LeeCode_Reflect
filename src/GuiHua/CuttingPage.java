@@ -34,4 +34,22 @@ public class CuttingPage {
         }
         return d;
     }
+    //递归版
+    public static int PaLouTi(int n){
+        if(n == 1)
+            return 1;
+        if(n == 2)
+            return 2;
+        // return climbStairs(n-1) + climbStairs(n-2);
+        int a = 1;
+        int b = 2;
+        int sum = a + b;
+        int count = n - 3;
+        while(count-- > 0){
+            a = b;
+            b = sum;
+            sum = a + b;
+        }
+        return sum;
+    }
 }
