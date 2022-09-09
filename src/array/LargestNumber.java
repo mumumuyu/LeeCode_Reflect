@@ -1,6 +1,10 @@
 package array;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.stream.Stream;
 
 /**
@@ -15,7 +19,15 @@ import java.util.stream.Stream;
 public class LargestNumber {
 
     public static void main(String[] args) {
-
+/*        String lalala = String.valueOf("lalala");
+        char[] chars = lalala.toCharArray();
+        chars[0] = 'g';
+        System.out.println(lalala);*/
+//        System.out.println(new Date().getTime());
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+        Calendar calendar = Calendar.getInstance();
+        String format = df.format(calendar.getTime());
+        System.out.println(format);
     }
 
 
