@@ -1,5 +1,6 @@
 package strings;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -48,5 +49,44 @@ public class IsAnagram {
                 return false;
         }
         return true;
+    }
+
+    /**同哈希表升级版,不需要两个表，麻烦了
+     * ??? 怎么这玩意儿比我暴力解法还慢，空间要得更多???
+     * 执行用时：14 ms, 在所有 Java 提交中击败了19.80%的用户
+     * 内存消耗：42.6 MB, 在所有 Java 提交中击败了5.02%的用户
+     */
+    public boolean isAnagram2(String s, String t) {
+        if (s.length()!= t.length() || s.equals(t))
+            return false;
+        HashMap<Character, Integer> map = new HashMap<>();
+        char[] chars = s.toCharArray();
+        for (char c : chars){
+            map.put(c,map.getOrDefault(c,0)+1);
+        }
+
+        char[] chars2 = t.toCharArray();
+        for (char c : chars2){
+            map.put(c,map.getOrDefault(c,0)-1);
+            if(map.get(c)<0)
+                return false;
+        }
+        return true;
+    }
+
+    /**排序
+     *执行用时：2 ms, 在所有 Java 提交中击败了88.78%的用户
+     * 内存消耗：41.2 MB, 在所有 Java 提交中击败了89.99%的用户
+     */
+    public boolean isAnagram3(String s, String t) {
+        if (s.length()!= t.length() || s.equals(t))
+            return false;
+        char[] chars = s.toCharArray();
+        char[] chars1 = t.toCharArray();
+        Arrays.sort(chars);
+        Arrays.sort(chars1);
+        String s2 = String.valueOf(chars);
+        String s1 = String.valueOf(chars1);
+        return s1.equals(s2);
     }
 }
