@@ -31,16 +31,33 @@ public class IntersactionNode {
         return null;
     }
 
-    //双指针   下次看~
+    //双指针
     public ListNode getIntersectionNode2(ListNode headA, ListNode headB) {
-        if (headA == null || headB == null) {
+        if(headA == null || headB == null)
             return null;
-        }
-        ListNode pA = headA, pB = headB;
-        while (pA != pB) {
-            pA = pA == null ? headB : pA.next;
-            pB = pB == null ? headA : pB.next;
+        ListNode pA = headA,pB = headB;
+        while(pA!=pB){
+            pA = pA == null ? headB:pA.next;
+            pB = pB == null ? headA:pB.next;
         }
         return pA;
     }
+
+    public static ListNode getIntersectionNode3(ListNode headA, ListNode headB) {
+        if(headA == null || headB == null)
+            return null;
+        HashSet<ListNode> nodes = new HashSet<>();
+        while(headA != null){
+            nodes.add(headA);
+            headA = headA.next;
+        }
+
+        while(headB!=null) {
+            if (nodes.contains(headB))
+                return headB;
+            headB = headB.next;
+        }
+        return null;
+    }
+
 }
