@@ -1,9 +1,6 @@
 package array;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -36,9 +33,16 @@ class KthLargest {
     }
 
     public static void main(String[] args) {
-        KthLargest kthLargest = new KthLargest(2, new int[]{4, 3, 2, 1});
+        /*KthLargest kthLargest = new KthLargest(2, new int[]{4, 3, 2, 1});
         System.out.println(kthLargest.add(3));
         System.out.println(kthLargest.add(4));
-        System.out.println(kthLargest.add(5));
+        System.out.println(kthLargest.add(5));*/
+        PriorityQueue<Integer> ints = new PriorityQueue<>(2);
+        ints.add(3);
+        ints.add(4);
+        ints.add(5);
+        ints.add(6);
+        ints.stream().forEach(System.out::println);
+
     }
 }
