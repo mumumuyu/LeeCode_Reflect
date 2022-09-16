@@ -13,6 +13,7 @@ public class SearchInsert {
     }
 
     /**
+     * 直接插入
      * 执行用时：0 ms, 在所有 Java 提交中击败了100.00%的用户
      * 内存消耗：41 MB, 在所有 Java 提交中击败了52.56%的用户
      */
@@ -27,5 +28,21 @@ public class SearchInsert {
             ind --;
         }
         return 0;
+    }
+
+    //二分
+    public int searchInsert2(int[] nums, int target) {
+        int left = 0,right = nums.length - 1;
+        int ans = nums.length;
+        while(left <= right){
+            int mid = left + (right - left)/2;
+            if(nums[mid] >= target) {
+                ans = mid;
+                right = mid - 1;
+            }else if (nums[mid] < target){
+                left = mid + 1;
+            }
+        }
+        return ans;
     }
 }
