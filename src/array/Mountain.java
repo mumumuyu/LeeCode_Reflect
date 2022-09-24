@@ -1,5 +1,9 @@
 package array;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * @Description:
  * 山顶数组找顶峰
@@ -8,7 +12,14 @@ package array;
  */
 public class Mountain {
     public static void main(String[] args) {
-        System.out.println(mySqrt(8));
+        int[] nums = new int[]{1,2,3,4};
+//        Arrays.stream(nums).map(a->Character.valueOf((char) (a+'0'))).boxed().collect(Collectors.toList());
+        String[] nums2 = new String[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            nums2[i] = String.valueOf(nums[i]);
+        }
+        String join = String.join(",", nums2);
+        System.out.println(join);
     }
 
     public int peakIndexInMountainArray(int[] arr) {

@@ -1,10 +1,9 @@
 package array;
 
+import com.sun.deploy.util.StringUtils;
+
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.*;
 import java.util.stream.Stream;
 
 /**
@@ -24,10 +23,27 @@ public class LargestNumber {
         chars[0] = 'g';
         System.out.println(lalala);*/
 //        System.out.println(new Date().getTime());
-        SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+        /*SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmssSSS");
         Calendar calendar = Calendar.getInstance();
         String format = df.format(calendar.getTime());
-        System.out.println(format);
+        System.out.println(format);*/
+        Map<String, Set<String>> stopIdMap = new HashMap<>();
+        ArrayList<String> lists = new ArrayList<>();
+        lists.add("123");
+        lists.add("234");
+        lists.add("345");
+
+        for(String stopId: lists) {
+            if (stopIdMap == null || stopIdMap.size() <= 0 || stopIdMap.get("stopName") == null) {
+                Set<String> nameSet = new HashSet<>();
+                nameSet.add(String.valueOf(stopId));
+                stopIdMap.put("stopName", nameSet);
+            } else {
+                stopIdMap.get("stopName").add(String.valueOf(stopId));
+                stopIdMap.replace("stopName", stopIdMap.get("stopName"));
+            }
+        }
+        System.out.println(StringUtils.join(Arrays.asList(stopIdMap.get("stopName").toArray()), ","));
     }
 
 
