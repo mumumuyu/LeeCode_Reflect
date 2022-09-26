@@ -1,10 +1,9 @@
 package linkedList;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.logging.SimpleFormatter;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @Description: 圆圈最后一个数 ——约瑟夫环
@@ -14,7 +13,8 @@ import java.util.logging.SimpleFormatter;
 public class YueSeFuHuan {
     public static void main(String[] args) {
 //        System.out.println(lastRemaining3(70866,116922));//64165
-        System.out.println(lastRemaining3(5,3));//64165
+        System.out.println(lastRemaining0(5,3));//64165
+//        Stream.generate(()->(int)(Math.random()*10)).skip(3).limit(10).collect(Collectors.toList());
     }
 
     //手撕，直接超时😡
@@ -74,5 +74,18 @@ public class YueSeFuHuan {
             ans = (ans + m) % i;
         }
         return ans;
+    }
+
+    public static int lastRemaining0(int n, int m) {
+        ArrayList<Integer> nums = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            nums.add(i);
+        }
+        int index = 0;
+        for (int i = 0; i < n-1; i++) {
+            index = (index + m - 1) % (n-i);
+            nums.remove(index);
+        }
+        return nums.get(0);
     }
 }

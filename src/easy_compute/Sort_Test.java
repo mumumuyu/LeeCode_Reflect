@@ -3,7 +3,10 @@ package easy_compute;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @Description: 排序算法
@@ -12,7 +15,7 @@ import java.util.List;
  */
 public class Sort_Test {
     public static void main(String[] args) {
-        long l1 = 0,l2=0,l3=0,l4=0,l5=0,l6=0,l7=0,l8=0;
+        /*long l1 = 0,l2=0,l3=0,l4=0,l5=0,l6=0,l7=0,l8=0;
         for (int i = 0; i < 50; i++) {
             ArrayList<Integer> lists = new ArrayList();
             for (int j = 0; j < 5000; j++) {
@@ -44,7 +47,10 @@ public class Sort_Test {
         System.out.println("冒泡共计"+(l2-l1)/50);
         System.out.println("直接插入共计"+(l4-l3)/50);
         System.out.println("快速排序共计"+(l6-l5)/50);
-        System.out.println("直接选择共计"+(l8-l7)/50);
+        System.out.println("直接选择共计"+(l8-l7)/50);*/
+        int[] nums = new int[]{4,3,5,6,4};
+        quickSortMe(nums,0,nums.length-1);
+        Arrays.stream(nums).forEach(System.out::println);
     }
 
     /**
@@ -197,6 +203,31 @@ public class Sort_Test {
 
         quickSort(nums,low,j-1);
         quickSort(nums,j+1,high);
+    }
+
+    public static void quickSortMe(int[] nums,int low,int high){
+        if (low > high)
+            return;
+        int temp = nums[low];
+        int i = low,j = high;
+        while (i < j){
+            //找右边小的
+            while (i<j && nums[j] >= temp){
+                j--;
+            }
+            while (i < j && nums[i] <= temp){
+                i++;
+            }
+            if (i<j){
+                int temp2 = nums[i];
+                nums[i] = nums[j];
+                nums[j] = temp2;
+            }
+        }
+        nums[low] = nums[i];
+        nums[i] = temp;
+        quickSortMe(nums,low,j-1);
+        quickSortMe(nums,j+1,high);
     }
 
     /**
