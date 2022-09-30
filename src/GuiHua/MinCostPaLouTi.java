@@ -8,7 +8,7 @@ package GuiHua;
  */
 public class MinCostPaLouTi {
     public static void main(String[] args) {
-
+        System.out.println(minCostClimbingStairs2(new int[]{1, 100, 1, 100, 1}));
     }
 
     public int minCostClimbingStairs(int[] cost) {
@@ -20,14 +20,14 @@ public class MinCostPaLouTi {
     }
 
     //滚动数组优化,只与i-1,i-2相关，所以做留存
-    public int minCostClimbingStairs2(int[] cost) {
+    public static int minCostClimbingStairs2(int[] cost) {
         int[] dp = new int[cost.length+1];
-        int cur = 0,pre = 0;
+        int cur = 0,pre = 0,next = 0;
         for (int i = 2; i < dp.length; i++) {
-            int next = Math.min(cur + dp[i-1],pre+dp[i-2]);
+            next = Math.min(cur + cost[i-1],pre+cost[i-2]);
             pre = cur;
             cur = next;
         }
-        return dp[cost.length];
+        return next;
     }
 }
